@@ -15,8 +15,8 @@ use tempfile::TempDir;
 
 use crate::conf::{IdHost, ListenAnnounce};
 
-mod conf;
-mod error;
+pub mod conf;
+pub mod error;
 
 /// Struct representing the bitcoind process with related information
 pub struct LightningD {
