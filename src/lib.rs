@@ -60,18 +60,19 @@ impl LightningD {
         let rpcconnect = format!("--bitcoin-rpcconnect={}", bitcoind.params.rpc_socket.ip());
         let rpcport = format!("--bitcoin-rpcport={}", bitcoind.params.rpc_socket.port());
 
-        let (user, pass) = bitcoind
+        let cookie = bitcoind
             .params
             .get_cookie_values()
-            .expect("failing get_cookie_values");
+            .expect("failing get_cookie_values")
+            .expect("missing cookie file");
 
         let rpcuser = format!(
             "--bitcoin-rpcuser={}",
-            user.expect("missing user in cookie file")
+            cookie.user
         );
         let rpcpassword = format!(
             "--bitcoin-rpcpassword={}",
-            pass.expect("missing password in cookie file")
+            cookie.password
         );
 
         let lightning_dir_arg = format!("--lightning-dir={}", temp_path.display());
